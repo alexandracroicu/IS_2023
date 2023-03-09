@@ -1,0 +1,40 @@
+1)
+SELECT * FROM student
+WHERE nume LIKE '%u';
+
+2)
+SELECT substr(nume,instr(nume,' ')) AS NUME,substr(nume,0,instr(nume,' ')) AS PRENUME,an FROM student
+
+3)
+SELECT nume, substr(nume,0,instr(nume,' ')) AS PRENUME,length(substr(nume,0,instr(nume,' ')-1)) AS LUNGIME
+FROM student
+WHERE length (substr(nume,0,instr(nume,' ')-1)) >=7
+
+4)
+SELECT nume,an,datan FROM student WHERE extract(year from SYSDATE) - extract(year from datan)=20;
+
+5)
+SELECT nume,an,datan FROM student WHERE extract(MONTH from SYSDATE)= extract(MONTH from datan);
+
+6)
+SELECT * FROM student WHERE bursa IS NULL ;
+SELECT * FROM student WHERE bursa=0;
+
+7)
+SELECT an,nume,
+CASE WHEN CNP IS NULL THEN 'CNP necompletat'
+ELSE CNP END AS CNP
+FROM student
+WHERE an=2;
+
+8)
+SELECT nume,cnp,an FROM student WHERE TO_NUMBER(substr(cnp,0,1))=1;
+/*cnp LIKE "1%";*/
+
+9)
+SELECT nume,an,
+CASE WHEN to_number(substr(cnp,0,1))=1 THEN 'Baieti'
+     WHEN to_number(substr(cnp,0,1))=2 THEN 'Fete'
+END AS Grup
+FROM student;
+
